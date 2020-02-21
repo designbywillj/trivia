@@ -1,0 +1,23 @@
+{
+  "name": "trivia",
+  "version": "1.0.0",
+  "description": "Question game",
+  "main": "src/js/index.js",
+  "scripts": {
+    "scss": "node-sass --watch src/scss -o ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/designbywillj/trivia.git"
+  },
+  "author": "Will Johnson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/designbywillj/trivia/issues"
+  },
+  "homepage": "https://github.com/designbywillj/trivia#readme",
+  "dependencies": {
+    "bootstrap": "^4.4.1",
+    "node-sass": "^4.13.1"
+  }
+}
