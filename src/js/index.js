@@ -6,23 +6,65 @@ $(document).ready(function() {
           startContainer = $('#start-container'),
           startButton = $('#start-button'),
           resultContainer = $('#result-container'),
-          roundTime = 15
+          roundTime = 15,
+          correctAudio = new Audio('src/audio/correct.mp3'),
+          incorrectAudio = new Audio('src/audio/incorrect.mp3')
 
 
     // Define Questions
     const questions = [
         {
-            prompt: 'What was the suit color of the Greatest American Hero?',
-            choices: ['Correct', 'Green', 'Blue', 'Orange'],
-            answer: 'Correct'
+            prompt: 'What year was the very first model of the iPhone released?',
+            choices: ['2006', '2007', '2008', '2009'],
+            answer: '2007'
         },
         {
-            prompt: 'What was the suit?',
-            choices: ['Correct', 'Green', 'Blue', 'Orange'],
-            answer: 'Correct'
+            prompt: 'What’s the shortcut for the “copy” function on most computers?',
+            choices: ['Ctrl/&#8984; + X', 'Ctrl/&#8984; + V', 'Ctrl/&#8984; + C', 'Ctrl/&#8984; + Z'],
+            answer: 'Ctrl/⌘ + C'
+        },
+        {
+            prompt: 'What does “HTTP” stand for?',
+            choices: ['HyperType Transfer Program', 'HyperText Transmission Protocol', 'HTML Text Tranfer Protocol', 'HyperText Transfer Protocol'],
+            answer: 'HyperText Transfer Protocol'
+        },
+        {
+            prompt: 'What is the name of the man who launched eBay back in 1995?',
+            choices: ['Elon Musk', 'Pierre Omidyar', 'Jeff Bezos', 'Mark Zuckerberg'],
+            answer: 'Pierre Omidyar'
+        },
+        {
+            prompt: 'What is the smallest unit of digital storage?',
+            choices: ['Terabyte', 'Gigabyte', 'Bit', 'Byte'],
+            answer: 'Bit'
+        },
+        {
+            prompt: 'Which email service is owned by Microsoft?',
+            choices: ['Gmail', 'Outlook', 'Hotmail', 'Yahoo!'],
+            answer: 'Outlook'
+        },
+        {
+            prompt: 'Google Chrome, Safari, Firefox and Edge are different types of what?',
+            choices: ['Web Browsers', 'IDEs', 'Email Clients', 'Text Editors'],
+            answer: 'Web Browsers'
+        },
+        {
+            prompt: 'Is Java an OS?',
+            choices: ['Yes', 'No'],
+            answer: 'No'
+        },
+        {
+            prompt: 'Who is often called the father of the computer?',
+            choices: ['Steve Jobs', 'Elon Musk', 'Bill Gates', 'Charles Babbage'],
+            answer: 'Charles Babbage'
+        },
+        {
+            prompt: 'What was Twitter’s original name?',
+            choices: ['BackRub', 'twtter', 'Blue Ribbon', 'Tweeter'],
+            answer: 'twtter'
         }
     ]
-    
+
 
     // Global Variables
     let countdown,
@@ -38,7 +80,7 @@ $(document).ready(function() {
         startContainer.remove()
         displayQuestion()
     }
-    
+
 
     // Counter
     function counter() {
@@ -48,6 +90,14 @@ $(document).ready(function() {
             clearInterval(countdown)
             processChoice()
         }
+    }
+
+
+    // Reset Counter
+    function resetCounter() {
+        clearInterval(countdown)
+        counterValue = roundTime
+        counterText.text('')
     }
 
 
@@ -68,18 +118,10 @@ $(document).ready(function() {
             // Display Choices
             for (i = 0; i < currentPrompt.choices.length; i++) {
                 choicesContainer.append(
-                    `<div class="choice">${currentPrompt.choices[i]}</div>`
+                    `<button class="btn btn-secondary choice">${currentPrompt.choices[i]}</button>`
                 )
             }
         }
-    }
-
-
-    // Reset Counter
-    function resetCounter() {
-        clearInterval(countdown)
-        counterValue = roundTime
-        counterText.text('')
     }
 
 
@@ -88,15 +130,17 @@ $(document).ready(function() {
         // Remove Choices From DOM
         choicesContainer.empty()
         resetCounter()
-        counterText.text("The correct answer is " + currentPrompt.answer);
+        counterText.text("The correct answer is " + currentPrompt.answer)
 
         setTimeout(displayQuestion, 2000)
 
         if (choice == currentPrompt.answer) {
             correct++
+            correctAudio.play()
             promptText.text("CORRECT!")
         } else {
             incorrect++
+            incorrectAudio.play()
             promptText.text("Incorrect.")
         }
 

@@ -1,0 +1,17 @@
+.btn {
+    height: 3rem;
+    padding: 0 24px;
+    border-radius: 1.5rem;
+
+    &-secondary {
+        background-color: $light-gray;
+    }
+}
+.choice {
+    width: 100%;
+    display: block;
+    margin-bottom: 1rem;
+}
+body#app {
+    margin-top: 2rem;
+}
